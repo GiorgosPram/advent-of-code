@@ -2,16 +2,20 @@ import pandas as pd
 
 df = pd.read_csv("day1_input.txt", delimiter='   ', names=['left', 'right'], engine='python')
 
-sorted_left = df['left'].sort_values().reset_index(drop=True)
-sorted_right = df['right'].sort_values().reset_index(drop=True)
-differences = abs(sorted_right - sorted_left)
+def problem_1():
+    sorted_left = df['left'].sort_values().reset_index(drop=True)
+    sorted_right = df['right'].sort_values().reset_index(drop=True)
 
-# Part 1
-print(differences.sum())
+    # Part 1
+    return abs(sorted_right - sorted_left).sum()
 
-right_counts = df['right'].value_counts()
-left_counts = df['left'].map(right_counts).fillna(0).astype(int)
-similarity_score = left_counts * df['left']
+def problem_2():
+    right_counts = df['right'].value_counts()
+    left_counts = df['left'].map(right_counts).fillna(0).astype(int)
 
-# Part 2
-print(similarity_score.sum())
+    # Part 2
+    return (left_counts * df['left']).sum()
+
+
+print(problem_1())
+print(problem_2())
